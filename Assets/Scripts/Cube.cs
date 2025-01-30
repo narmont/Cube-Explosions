@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Runtime.ExceptionServices;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -9,21 +6,21 @@ using Random = UnityEngine.Random;
 
 public class Cube : MonoBehaviour
 {
-    [SerializeField] private int _minRandomValue;
-    [SerializeField] private int _maxRandomValue;
-
     private float _chance = 100;
-    public Vector3 Position => this.transform.position;
+    private Rigidbody _rigidbody;
+    public Vector3 Position => transform.position;
+    public Rigidbody Rigidbody => _rigidbody;
     public float ChanceToSplit => _chance;
 
     private void Awake()
     {
+        _rigidbody = GetComponent<Rigidbody>();
         GetComponent<Renderer>().material.color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
     }
 
-    public void Initialization(Cube cube, Vector3 scale, float chance)
+    public void Init(Cube cube, Vector3 scale, float chance)
     {
-        this.transform.position = cube.transform.position;
+        transform.position = cube.transform.position;
         transform.localScale = scale;
         _chance = chance;
     }

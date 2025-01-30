@@ -10,7 +10,7 @@ public class Explode : MonoBehaviour
     {
         foreach (Cube cube in cubes)
         {
-            var rigidbody = cube.GetComponent<Rigidbody>();
+            var rigidbody = cube.Rigidbody;
 
             if (rigidbody != null)
             {

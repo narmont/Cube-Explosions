@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform _pointer;
     [SerializeField] private Camera _mainCamera;
 
-    public event Action<Cube> DestroyCube;
+    public event Action<Cube> CubeDestroed;
 
     private void Awake()
     {
@@ -42,7 +42,7 @@ public class Player : MonoBehaviour
 
         if (cube)
         {
-            DestroyCube?.Invoke(cube);
+            CubeDestroed?.Invoke(cube);
 
             Destroy(targetHit.collider.gameObject);
         }

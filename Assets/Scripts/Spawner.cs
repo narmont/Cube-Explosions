@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Explode))]
@@ -8,8 +7,8 @@ public class Spawner : MonoBehaviour
     [SerializeField] private Transform _pointPosition;
     [SerializeField] private Cube _prefabCube;
     [SerializeField] private Player _player;
+    [SerializeField] private Explode _explode;
 
-    private Explode _explode;
     private int _minRandomValue = 2;
     private int _maxRandomValue = 6;
     private int _indexForDerciseChanceSpleet = 2;
@@ -25,12 +24,12 @@ public class Spawner : MonoBehaviour
 
     private void OnEnable()
     {
-        _player.DestroyCube += CreateRedusedCubes;
+        _player.CubeDestroed += CreateRedusedCubes;
     }
 
     private void OnDisable()
     {
-        _player.DestroyCube -= CreateRedusedCubes;
+        _player.CubeDestroed -= CreateRedusedCubes;
     }
 
     private Cube CreateCube(Cube cube, Vector3 position)
@@ -46,7 +45,6 @@ public class Spawner : MonoBehaviour
         float chance = Random.Range(_minimumChance, _maximumChance);
 
         List<Cube> cubes = new List<Cube>();
-        _explode = gameObject.AddComponent<Explode>();
 
         Vector3 scale = newCube.transform.localScale / 2;
         float chanceToSplite = newCube.ChanceToSplit / _indexForDerciseChanceSpleet;
@@ -58,7 +56,7 @@ public class Spawner : MonoBehaviour
             for (int i = 0; i < countCubes; i++)
             {
                 newCube = CreateCube(newCube, newCube.Position);
-                newCube.Initialization(newCube, scale, chanceToSplite);
+                newCube.Init(newCube, scale, chanceToSplite);
                 cubes.Add(newCube);
             }
         }
